@@ -1,37 +1,53 @@
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-
-import { Box, Stack } from '@mui/material';
-
-import { AboutUs } from '../../../components/AboutUs/AboutUs';
-import { PhraseRotator } from '../../../components/ui/Text/PhraseRotator';
-import { OurWorkHomePageImages } from '../../../components/Images/OurWorkHomePageImages';
-
-import { homePageStyles } from './HomePage.styles';
-import homePhoto from '../../../assets/images/home/homePageBuildings.jpg';
-import homePhotoPlaceHolder from '../../../assets/images/home/homePageBuildingsPlaceHolder10.jpg';
+import { Box, Typography, useTheme, ButtonBase } from '@mui/material';
+import backgroundPhoto from '../../../assets/images/IMG_2990.webp';
+import { Link } from 'react-router-dom';
 
 export const HomePage = () => {
+  const theme = useTheme();
+
   return (
-    <Box component="main">
-      <Stack direction={'column'}>
-        <Box sx={homePageStyles.container}>
-          <LazyLoadImage
-            src={homePhoto}
-            placeholderSrc={homePhotoPlaceHolder}
-            alt="Home Background"
-            effect="opacity"
-            width="100%"
-            height="100%"
-            style={homePageStyles.lazyImage}
-          />
-          <PhraseRotator />
-        </Box>
-      </Stack>
-      <Box component="section">
-        <AboutUs />
+    <Box
+      component="main"
+      sx={{
+        width: '100%',
+        height: '100vh',
+        backgroundImage: `url(${backgroundPhoto})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      <Box sx={{ display: 'flex', justifyContent: 'center', pt: 24 }}>
+        <Typography variant="h1" fontFamily={'cursive'}>
+          ЧСИ НЕДЕЛЧО МИТЕВ
+        </Typography>
       </Box>
-      <Box component="section">
-        <OurWorkHomePageImages />
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 24 }}>
+        <ButtonBase
+          component={Link}
+          to={'/test'} // Replace with the actual path
+          sx={{
+            width: 320,
+            height: 160,
+            textDecoration: 'none',
+            backgroundColor: theme.palette.secondary.main,
+            borderRadius: 8,
+            textAlign: 'center',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            '&:hover': {
+              backgroundColor: theme.palette.secondary.light, // Optional hover effect
+            },
+          }}
+        >
+          <Typography
+            variant="h4"
+            fontFamily={'sans-serif'}
+            color="textPrimary"
+          >
+            ПОПЪЛНИ ДОКУМЕНТИ
+          </Typography>
+        </ButtonBase>
       </Box>
     </Box>
   );

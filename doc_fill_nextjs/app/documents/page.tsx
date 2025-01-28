@@ -1,23 +1,37 @@
+"use client";
+
 import {
   Accordion,
-  AccordionActions,
-  AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   Grid2 as Grid,
+  Stack,
   Typography,
 } from "@mui/material";
-
+import Image from "next/image";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { documentsPageStyles } from "./page.styles";
+import {
+  DocumentSnapshotPath,
+  useDocumentsSnapshot,
+} from "../hooks/useDocumentsSnapshots";
+import { useRouter } from "next/navigation";
 
 const DocumentsPage = () => {
+  const snapshotsPaths = useDocumentsSnapshot();
+  const router = useRouter();
+
+  const handleDocumentClick = (
+    event: React.MouseEvent<HTMLDivElement>,
+    snapshotId: number
+  ) => {
+    router.push(`/documentForm/${snapshotId}`);
+  };
   return (
     <Box sx={documentsPageStyles.container}>
       {[1, 2, 3].map((i) => (
         <Box key={i} sx={documentsPageStyles.accordionContainer}>
-          <Accordion defaultExpanded sx={documentsPageStyles.accordion}>
+          <Accordion sx={documentsPageStyles.accordion}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1-content"
@@ -26,8 +40,28 @@ const DocumentsPage = () => {
               <Typography component="span">Accordion 1</Typography>
             </AccordionSummary>
             <Grid container spacing={16} sx={documentsPageStyles.gridContainer}>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
-                <Grid key={i} sx={documentsPageStyles.documentContainer}></Grid>
+              {snapshotsPaths.map((snapshotPath) => (
+                <Stack
+                  onClick={(event) =>
+                    handleDocumentClick(event, snapshotPath.id)
+                  }
+                  sx={{
+                    alignItems: "center",
+                    maxWidth: 300,
+                    textAlign: "center",
+                  }}
+                >
+                  <Image
+                    src={snapshotPath.fullPath}
+                    alt={snapshotPath.fullPath}
+                    width={200}
+                    height={300}
+                    priority
+                  />
+                  <Typography sx={{ fontSize: 32 }}>
+                    {snapshotPath.visualName}
+                  </Typography>
+                </Stack>
               ))}
             </Grid>
           </Accordion>

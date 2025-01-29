@@ -11,21 +11,18 @@ import {
 import Image from "next/image";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { documentsPageStyles } from "./page.styles";
-import {
-  DocumentSnapshotPath,
-  useDocumentsSnapshot,
-} from "../hooks/useDocumentsSnapshots";
 import { useRouter } from "next/navigation";
+import { paths } from "@/config/paths";
+import { documentsInfo } from "@/config/documents";
 
 const DocumentsPage = () => {
-  const snapshotsPaths = useDocumentsSnapshot();
   const router = useRouter();
 
   const handleDocumentClick = (
     event: React.MouseEvent<HTMLDivElement>,
-    snapshotId: number
+    snapshotName: string
   ) => {
-    router.push(`/documentForm/${snapshotId}`);
+    router.push(paths.documentsForm(snapshotName));
   };
   return (
     <Box sx={documentsPageStyles.container}>
@@ -39,11 +36,17 @@ const DocumentsPage = () => {
             >
               <Typography component="span">Accordion 1</Typography>
             </AccordionSummary>
-            <Grid container spacing={16} sx={documentsPageStyles.gridContainer}>
-              {snapshotsPaths.map((snapshotPath) => (
+            <Grid
+              key={i}
+              container
+              spacing={16}
+              sx={documentsPageStyles.gridContainer}
+            >
+              {documentsInfo.map((snapshotPath) => (
                 <Stack
+                  key={snapshotPath.id}
                   onClick={(event) =>
-                    handleDocumentClick(event, snapshotPath.id)
+                    handleDocumentClick(event, snapshotPath.documentName)
                   }
                   sx={{
                     alignItems: "center",

@@ -1,5 +1,5 @@
 export const paths = {
   home: "/",
   documents: "/documents",
-  documentsForm: (documentName: string) => `/documents/form/${documentName}`,
+  documentsForm: (documentId: number) => `/documents/form/${documentId}`,
 };

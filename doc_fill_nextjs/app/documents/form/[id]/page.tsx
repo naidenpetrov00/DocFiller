@@ -1,15 +1,25 @@
-"use client";
-import { documentByName } from "@/config/documents";
+import { getDocumentById, getDocumentsIds } from "@/config/documents";
+import { notFound } from "next/navigation";
 
-import { useRouter, useSearchParams, useParams } from "next/navigation";
-import { useCallback, useMemo } from "react";
+interface DocumentFormProps {
+  params: Promise<{ id: string }>;
+}
+const DocumentForm = async ({ params }: DocumentFormProps) => {
+  const id = (await params).id;
 
-const DocumentForm = () => {
-  const { id } = useParams();
-
-  const document = useMemo(() => documentByName(id!.toString()), [id]);
+  const document = getDocumentById(id!.toString());
+  if (!document) {
+    notFound();
+  }
 
   return <div></div>;
 };
+
+export async function generateStaticParams() {
+  const ids = getDocumentsIds();
+  return ids.map((id) => ({
+    id,
+  }));
+}
 
 export default DocumentForm;

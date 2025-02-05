@@ -1,10 +1,8 @@
-import { DocumentInfo } from "@/interfaces/documents";
+import { log } from "console";
+import { DocumentNames } from "./documentNames";
 import { requiredFields } from "./requiredFields";
+import { DocumentInfo } from "@/interfaces/documents";
 
-export const DocumentNames = {
-  MolbaNadvnesenaSuma: "molbaNadvnesenaSuma",
-  MolbaVdiganeZapor: "molbaVdiganeZapor",
-} as const;
 export type DocumentName = (typeof DocumentNames)[keyof typeof DocumentNames];
 
 export const documentsInfo: Record<string, DocumentInfo> = {
@@ -23,3 +21,18 @@ export const documentsInfo: Record<string, DocumentInfo> = {
     requiredFields: requiredFields.molbaVdiganeZapor,
   },
 } as const;
+
+export const getDocumentsIds = () => {
+  return Object.values(documentsInfo).map((document) => document.id.toString());
+};
+
+export const getDocumentById = (id: string) => {
+  return Object.values(documentsInfo).find(
+    (document) => document.id.toString() == id
+  );
+  console.log("document");
+  console.log(document);
+
+  if (document == undefined) {
+  }
+};

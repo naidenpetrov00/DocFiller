@@ -20,9 +20,9 @@ const DocumentsPage = () => {
 
   const handleDocumentClick = (
     event: React.MouseEvent<HTMLDivElement>,
-    snapshotName: string
+    documentId: number
   ) => {
-    router.push(paths.documentsForm(snapshotName));
+    router.push(paths.documentsForm(documentId));
   };
   return (
     <Box sx={documentsPageStyles.container}>
@@ -42,11 +42,11 @@ const DocumentsPage = () => {
               spacing={16}
               sx={documentsPageStyles.gridContainer}
             >
-              {documentsInfo.map((snapshotPath) => (
+              {Object.entries(documentsInfo).map(([key, documentInfo]) => (
                 <Stack
-                  key={snapshotPath.id}
+                  key={key}
                   onClick={(event) =>
-                    handleDocumentClick(event, snapshotPath.documentName)
+                    handleDocumentClick(event, documentInfo.id)
                   }
                   sx={{
                     alignItems: "center",
@@ -55,14 +55,14 @@ const DocumentsPage = () => {
                   }}
                 >
                   <Image
-                    src={snapshotPath.fullPath}
-                    alt={snapshotPath.fullPath}
+                    src={documentInfo.fullPath}
+                    alt={documentInfo.fullPath}
                     width={200}
                     height={300}
                     priority
                   />
                   <Typography sx={{ fontSize: 32 }}>
-                    {snapshotPath.visualName}
+                    {documentInfo.visualName}
                   </Typography>
                 </Stack>
               ))}

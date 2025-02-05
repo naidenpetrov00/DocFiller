@@ -1,5 +1,6 @@
 import { Fields } from "@/interfaces/documents";
-import { DocumentName, DocumentNames, documentsInfo } from "./documents";
+import { DocumentName } from "./documents";
+import { DocumentNames } from "./documentNames";
 
 export const requiredFields: Record<DocumentName, (keyof Fields)[]> = {
   [DocumentNames.MolbaNadvnesenaSuma]: [

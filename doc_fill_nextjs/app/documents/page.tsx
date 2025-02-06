@@ -13,7 +13,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { documentsPageStyles } from "./page.styles";
 import { useRouter } from "next/navigation";
 import { paths } from "@/config/paths";
-import { documentsInfo } from "@/config/documents";
+import { documentsInfo } from "@/app/lib/data/documents/documents";
 
 const DocumentsPage = () => {
   const router = useRouter();

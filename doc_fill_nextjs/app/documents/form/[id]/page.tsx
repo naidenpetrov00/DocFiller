@@ -1,18 +1,17 @@
-import { getDocumentById, getDocumentsIds } from "@/config/documents";
-import { notFound } from "next/navigation";
+import DocumentForm from "@/app/components/documentForm/DocumentForm";
+import { getDocumentsIds } from "@/app/lib/services/documents";
 
-interface DocumentFormProps {
+interface DocumentFormPageProps {
   params: Promise<{ id: string }>;
 }
-const DocumentForm = async ({ params }: DocumentFormProps) => {
+const DocumentFormPage = async ({ params }: DocumentFormPageProps) => {
   const id = (await params).id;
 
-  const document = getDocumentById(id!.toString());
-  if (!document) {
-    notFound();
-  }
-
-  return <div></div>;
+  return (
+    <DocumentForm id={id}>
+      <div></div>
+    </DocumentForm>
+  );
 };
 
 export async function generateStaticParams() {
@@ -22,4 +21,4 @@ export async function generateStaticParams() {
   }));
 }
 
-export default DocumentForm;
+export default DocumentFormPage;

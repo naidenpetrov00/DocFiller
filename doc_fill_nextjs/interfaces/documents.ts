@@ -1,3 +1,7 @@
+import { DocumentNames } from "@/app/lib/data/documents/documentNames";
+
+export type DocumentName = (typeof DocumentNames)[keyof typeof DocumentNames];
+
 export interface Fields {
   fullName?: string;
   identityNumber?: string;
@@ -16,5 +20,5 @@ export interface DocumentInfo {
   fullPath: string;
   visualName: string;
   fields: Fields;
-  requiredFields: (keyof Fields)[];
+  requiredFields: Partial<Record<keyof Fields, string>>;
 }
